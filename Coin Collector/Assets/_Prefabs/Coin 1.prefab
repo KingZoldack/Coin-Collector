@@ -111,6 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6669de1624914824aa1c2d2c1e544a6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _coinText: {fileID: 1896584422527155465}
 --- !u!1 &1896584422527155471
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,8 +205,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 114.54
-  m_fontSizeBase: 114.54
+  m_fontSize: 108.57
+  m_fontSizeBase: 108.57
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

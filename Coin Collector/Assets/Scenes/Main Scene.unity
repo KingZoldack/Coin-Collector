@@ -967,6 +967,7 @@ MonoBehaviour:
   _coinPrefab: {fileID: 1896584422351269846, guid: 87594b45847552d47910992f505769f6, type: 3}
   _coinHolder: {fileID: 1813474905}
   _mainCanvas: {fileID: 326174441}
+  _coinScript: {fileID: 1896584422351269843, guid: 87594b45847552d47910992f505769f6, type: 3}
   _clicksLeftText: {fileID: 1457351590}
   _coinsOwnedText: {fileID: 1535091479}
 --- !u!1 &1158494853
@@ -1162,7 +1163,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 10
+  m_text: 100
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9677875492e0df5468f20e6c1de06e04, type: 2}
   m_sharedMaterial: {fileID: -5410086806773482211, guid: 9677875492e0df5468f20e6c1de06e04, type: 2}
