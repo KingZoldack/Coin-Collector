@@ -967,6 +967,8 @@ MonoBehaviour:
   _coinPrefab: {fileID: 1896584422351269846, guid: 87594b45847552d47910992f505769f6, type: 3}
   _coinHolder: {fileID: 1813474905}
   _mainCanvas: {fileID: 326174441}
+  _clicksLeftText: {fileID: 1457351590}
+  _coinsOwnedText: {fileID: 1535091479}
 --- !u!1 &1158494853
 GameObject:
   m_ObjectHideFlags: 0
