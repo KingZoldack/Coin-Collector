@@ -12,7 +12,6 @@ public class Coin : MonoBehaviour
     float _currentTime;
     float _timeBeforeDestroy = 2.5f;
 
-
     enum CoinValue
     {
         One = 1,
@@ -31,7 +30,6 @@ public class Coin : MonoBehaviour
     {
         _currentTime -= Time.deltaTime;
 
-
         if (_currentTime <= 0f)
         {
             Destroy(this.gameObject);
@@ -39,10 +37,11 @@ public class Coin : MonoBehaviour
         }
     }
 
+    public void SetCoinText(TextMeshProUGUI coinText) => _coinText = coinText;
+
     public void HandleCoinText(int value)
     {
         CoinValue coinText = CoinValue.One;
-
 
         if (value == 1)
             coinText = CoinValue.One;
@@ -52,8 +51,6 @@ public class Coin : MonoBehaviour
 
         if (value == 100)
             coinText = CoinValue.Hundred;
-
-        Debug.Log(coinText);
 
         switch (coinText)
         {
