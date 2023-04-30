@@ -32,7 +32,9 @@ public class CoinManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        _coinsEarned = PlayerPrefs.GetInt("CoinsEarned", 0); // retrieve coinsEarned from PlayerPrefs or use 0 as default
+
+        _coinsOwnedText.text = _coinsEarned.ToString();
     }
 
     // Update is called once per frame
@@ -89,6 +91,8 @@ public class CoinManager : MonoBehaviour
         {
             _coinsEarned += _hundredCoinValue;
         }
+
+        PlayerPrefs.SetInt("CoinsEarned", _coinsEarned); // save coinsEarned to PlayerPrefs
 
         _coinsOwnedText.text = _coinsEarned.ToString();
 
