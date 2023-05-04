@@ -350,6 +350,7 @@
 "Assets/Scripts/CoinManager.cs"
 "Assets/Scripts/HandleClickedButton.cs"
 "Assets/Scripts/ShopManager.cs"
+"Assets/Scripts/StringReferences.cs"
 -langversion:9.0
 
 /deterministic

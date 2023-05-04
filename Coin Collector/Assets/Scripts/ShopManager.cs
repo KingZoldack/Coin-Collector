@@ -35,6 +35,11 @@ public class ShopManager : MonoBehaviour
 
     public Action<int> OnBuyItem;
 
+    private void OnEnable()
+    {
+        _coinManager.CoinsOwnedChanged += OnCoinsOwnedChanger;
+    }
+
     private void OnDisable()
     {
         _coinManager.CoinsOwnedChanged -= OnCoinsOwnedChanger;
@@ -43,7 +48,6 @@ public class ShopManager : MonoBehaviour
     private void Start()
     {
         _currentCoins = _coinManager.CoinsOwened();
-        _coinManager.CoinsOwnedChanged += OnCoinsOwnedChanger;
 
         _itemButton.image.sprite = itemImage[_itemLevel];
     }
@@ -54,19 +58,20 @@ public class ShopManager : MonoBehaviour
         if (_currentCoins >= _itemPrice[_currentPrice])
         {
             _currentCoins -= _itemPrice[_currentPrice];
-            OnBuyItem?.Invoke(_itemPrice[_currentPrice]);
+            
+            OnBuyItem?.Invoke(_itemPrice[_currentPrice]); //Sets param to item price
+            _coinManager.OnBuyItem(_itemPrice[_currentPrice]); //Updates player coins in CoinManager
+
             _currentPrice = _itemPrice[_currentPrice + 1];
             _itemLevel++;
-            Debug.Log(_currentCoins);
+            //Debug.Log(_currentCoins);
             _coinManager.SetCoinsOwned(_currentCoins);
             _coinsOwnedText.text = _currentCoins.ToString();
         }
 
     }
 
-    void OnCoinsOwnedChanger(int coinsOwned) => _currentCoins = coinsOwned;
-
-    void OnCoinsOwnedTextChanger() => _coinsOwnedText.text = _currentCoins.ToString();
+    void OnCoinsOwnedChanger(int coinsOwned) => _currentCoins = coinsOwned; //Sets current coins to coins owned
 
     //Upgrade if bought
 }

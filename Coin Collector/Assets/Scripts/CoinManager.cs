@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
 using System;
+using UnityEngine.PlayerLoop;
 
 public class CoinManager : MonoBehaviour
 {
@@ -54,13 +55,6 @@ public class CoinManager : MonoBehaviour
     void Start()
     {
         _coinsOwned = PlayerPrefs.GetInt("CoinsEarned", 1000); // retrieve coinsEarned from PlayerPrefs or use 0 as default
-
-        if (_coinsOwnedText == null)
-        {
-            var coinText = GameObject.FindGameObjectWithTag("Coins Owned Text");
-            _coinsOwnedText = coinText.GetComponent<TextMeshProUGUI>();
-
-        }
 
         UpdateCoinsOwnedText();
     }
@@ -122,7 +116,7 @@ public class CoinManager : MonoBehaviour
 
         _coinScript.HandleCoinText(coinsToAdd); //Calls HandleCoinText after adding coins
 
-        CoinsOwnedChanged?.Invoke(_coinsOwned);
+        CoinsOwnedChanged?.Invoke(_coinsOwned); //Listener in ShopManager
     }
 
     public int CoinsOwened()
@@ -131,9 +125,17 @@ public class CoinManager : MonoBehaviour
         return _coinsOwned;
     }
 
-    void OnBuyItem(int cost)
+    public void OnBuyItem(int cost) //Updates coinsOwned when item is bought.
     {
-        _coinsOwned += cost;
+        if (_coinsOwned >= cost)
+            _coinsOwned -= cost;
+
+        else
+        {
+            Debug.Log("Not enough coins!");
+        }
+
+        PlayerPrefs.SetInt("CoinsEarned", _coinsOwned); // save coinsEarned to PlayerPrefs
     }
 
     public void SetCoinsOwned(int coinsLeft)
@@ -143,5 +145,5 @@ public class CoinManager : MonoBehaviour
         PlayerPrefs.SetInt("CoinsEarned", _coinsOwned); // save coinsEarned to PlayerPrefs
     }
 
-    public void UpdateCoinsOwnedText() => _coinsOwnedText.text = _coinsOwned.ToString();
+    void UpdateCoinsOwnedText() => _coinsOwnedText.text = _coinsOwned.ToString();
 }
