@@ -29,7 +29,7 @@ public class CoinManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI _coinsOwnedText;
 
-    int _coinsOwned = 1000; //Initial coins owned value
+    int _coinsOwned = 10000; //Initial coins owned value
     int _clicksToBonus = 101, _maxBonusValue = 101; //Clicks left to bonus initially and after each subsequent bonus
     int _minRangeForBonus = 0, _maxRangeForBonus = 10; //Range for random chance
     int _oneCoinValue = 1, _tenCoinValue = 10, _hundredCoinValue = 100; //Coin values
@@ -54,7 +54,7 @@ public class CoinManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _coinsOwned = PlayerPrefs.GetInt("CoinsEarned", 1000); // retrieve coinsEarned from PlayerPrefs or use 0 as default
+        _coinsOwned = PlayerPrefs.GetInt("CoinsEarned", 10000); // retrieve coinsEarned from PlayerPrefs or use 0 as default
 
         UpdateCoinsOwnedText();
     }
@@ -121,19 +121,13 @@ public class CoinManager : MonoBehaviour
 
     public int CoinsOwened()
     {
-        _coinsOwned = PlayerPrefs.GetInt("CoinsEarned", 1000);
+        _coinsOwned = PlayerPrefs.GetInt("CoinsEarned", 10000);
         return _coinsOwned;
     }
 
     public void OnBuyItem(int cost) //Updates coinsOwned when item is bought.
     {
-        if (_coinsOwned >= cost)
-            _coinsOwned -= cost;
-
-        else
-        {
-            Debug.Log("Not enough coins!");
-        }
+        _coinsOwned -= cost;
 
         PlayerPrefs.SetInt("CoinsEarned", _coinsOwned); // save coinsEarned to PlayerPrefs
     }
