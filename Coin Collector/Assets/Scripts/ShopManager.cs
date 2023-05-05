@@ -17,7 +17,7 @@ public class ShopManager : MonoBehaviour
     int _currentPrice = 1;
 
     int _itemLevel = 0;
-    bool _maxLevel;
+    bool _isMaxLevel;
     bool _isFirstSprite = true;
 
     int[] _levelPrices;
@@ -55,23 +55,24 @@ public class ShopManager : MonoBehaviour
 
     private void OnEnable()
     {
-        _coinManager.CoinsOwnedChanged += OnCoinsOwnedChanger;
+       CoinManagerSingleton.Instance.CoinsOwnedChanged += OnCoinsOwnedChanger;
     }
 
     private void OnDisable()
     {
-        _coinManager.CoinsOwnedChanged -= OnCoinsOwnedChanger;
+        CoinManagerSingleton.Instance.CoinsOwnedChanged -= OnCoinsOwnedChanger;
     }
 
     private void Start()
     {
         _currentCoins = _coinManager.CoinsOwened();
         _itemPriceText = GetComponentInChildren<TextMeshProUGUI>();
+        _coinsOwnedText.text = CoinManagerSingleton.Instance.CoinsOwned.ToString();
 
         _itemLevel = PlayerPrefs.GetInt(_itemName + " Item Level");
         if (_itemLevel == 6)
         {
-            _maxLevel = true;
+            _isMaxLevel = true;
             _isFirstSprite = false;
         }
     }
@@ -86,7 +87,7 @@ public class ShopManager : MonoBehaviour
     {
         if (_isFirstSprite && _itemLevel != 6)
             _itemButton.image.sprite = itemImage[_itemLevel]; //Sprite stays the same on first click (at 0 cost)
-        
+
         else
         {
             int spriteIndex = Mathf.Min(_itemLevel - 1, itemImage.Length - 1); //Clamp to last sprite index
@@ -96,39 +97,40 @@ public class ShopManager : MonoBehaviour
 
     private void UpdatePriceText()
     {
-        if (!_maxLevel)
+        if (!_isMaxLevel)
             _itemPriceText.text = _itemPrice[_itemLevel].ToString();
-        
+
         else
             _itemPriceText.text = "MAX";
     }
 
     public void BuyItem()
     {
-        Debug.Log(_currentCoins.ToString());
+        int clampedLevel = Math.Clamp(_itemLevel, 0, _itemPrice.Length - 1);
+        int cost = _itemPrice[clampedLevel];
 
-        if(_maxLevel)
+        Debug.Log("Cost:" + cost);
+        if (_isMaxLevel)
         {
             ShowAlertText("MAX LEVEL!");
         }
-
-        else if (_currentCoins >= _itemPrice[_itemLevel] && !_maxLevel)
+        else if (CoinManagerSingleton.Instance.CoinsOwned >= cost)
         {
-            HandleTransactions();
-
+            CoinManagerSingleton.Instance.CoinsOwned -= cost;
+            Debug.Log("Total Coins:" + CoinManagerSingleton.Instance.CoinsOwned);
             _itemLevel++;
             PlayerPrefs.SetInt(_itemName + " Item Level", _itemLevel);
-            if (_itemLevel > 5)
-                MaxLevelReached();
+            if (_itemLevel == _itemPrice.Length)
+            {
+                _isMaxLevel = true;
+            }
 
-            _coinManager.SetCoinsOwned(_currentCoins);
-            _coinsOwnedText.text = _currentCoins.ToString();
+            UpdateItemSprite();
+            UpdatePriceText();
+            _coinsOwnedText.text = CoinManagerSingleton.Instance.CoinsOwned.ToString();
         }
-
-        else if (_currentCoins < _itemPrice[_itemLevel])
-        {
+        else
             ShowAlertText("NOT ENOUGH COINS!");
-        }
 
         _isFirstSprite = false;
     }
@@ -150,11 +152,16 @@ public class ShopManager : MonoBehaviour
 
     private void MaxLevelReached()
     {
-            _maxLevel = true;
-            _itemLevel = 6;
+        _isMaxLevel = true;
+        _itemLevel = 6;
     }
 
-    void OnCoinsOwnedChanger(int coinsOwned) => _currentCoins = coinsOwned; //Sets current coins to coins owned
+    void OnCoinsOwnedChanger(int coinsOwned)
+    {
+        UpdateItemSprite();
+        UpdatePriceText();
+        //_currentCoins = coinsOwned; //Sets current coins to coins owned
+    }
 
     public void OpenUpgradePanel()
     {

@@ -102,21 +102,21 @@ public class CoinManager : MonoBehaviour
     void AddCoins(int coinsToAdd)
     {
         if (coinsToAdd == _oneCoinValue)
-            _coinsOwned++;
+            CoinManagerSingleton.Instance.CoinsOwned += _oneCoinValue;
 
         else if (coinsToAdd == _tenCoinValue)
-            _coinsOwned += _tenCoinValue;
-        
-        else if (coinsToAdd == _hundredCoinValue)
-            _coinsOwned += _hundredCoinValue;
+            CoinManagerSingleton.Instance.CoinsOwned += _tenCoinValue;
 
-        PlayerPrefs.SetInt("CoinsEarned", _coinsOwned); // save coinsEarned to PlayerPrefs
+        else if (coinsToAdd == _hundredCoinValue)
+            CoinManagerSingleton.Instance.CoinsOwned += _hundredCoinValue;
+
+        //PlayerPrefs.SetInt("CoinsEarned", _coinsOwned); // save coinsEarned to PlayerPrefs
 
         UpdateCoinsOwnedText();
 
         _coinScript.HandleCoinText(coinsToAdd); //Calls HandleCoinText after adding coins
 
-        CoinsOwnedChanged?.Invoke(_coinsOwned); //Listener in ShopManager
+        CoinsOwnedChanged?.Invoke(CoinManagerSingleton.Instance.CoinsOwned); //Raise an event to notify other scripts that the coins owned has changed
     }
 
     public int CoinsOwened()
@@ -127,9 +127,9 @@ public class CoinManager : MonoBehaviour
 
     public void OnBuyItem(int cost) //Updates coinsOwned when item is bought.
     {
-        _coinsOwned -= cost;
+        CoinManagerSingleton.Instance.CoinsOwned -= cost;
 
-        PlayerPrefs.SetInt("CoinsEarned", _coinsOwned); // save coinsEarned to PlayerPrefs
+        //PlayerPrefs.SetInt("CoinsEarned", _coinsOwned); // save coinsEarned to PlayerPrefs
     }
 
     public void SetCoinsOwned(int coinsLeft)
