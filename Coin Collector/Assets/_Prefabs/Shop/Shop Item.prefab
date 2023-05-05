@@ -149,6 +149,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: Bat
   _itemPrice: 0000000064000000fa000000f4010000e8030000c4090000
+  _alertTextGameObject: {fileID: 8593302828802934571, guid: dc2a9cfb70b9b724896406b4f5b5647c, type: 3}
+  _mainCanvasTransform: {fileID: 3158793446367475824, guid: 031e22d0396908549b723aa0c8217b9e, type: 3}
   itemImage:
   - {fileID: 21300000, guid: 71b42ee9773285447bbfe63e7d23642e, type: 3}
   - {fileID: 21300000, guid: 527941678808a1744aa760446bbeae0a, type: 3}

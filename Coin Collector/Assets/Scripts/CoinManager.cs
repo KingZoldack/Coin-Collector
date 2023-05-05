@@ -29,7 +29,7 @@ public class CoinManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI _coinsOwnedText;
 
-    int _coinsOwned = 10000; //Initial coins owned value
+    public int _coinsOwned = 10000; //Initial coins owned value
     int _clicksToBonus = 101, _maxBonusValue = 101; //Clicks left to bonus initially and after each subsequent bonus
     int _minRangeForBonus = 0, _maxRangeForBonus = 10; //Range for random chance
     int _oneCoinValue = 1, _tenCoinValue = 10, _hundredCoinValue = 100; //Coin values
@@ -62,7 +62,7 @@ public class CoinManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log(_coinsOwned);
     }
 
     public void SpawnCoin()
