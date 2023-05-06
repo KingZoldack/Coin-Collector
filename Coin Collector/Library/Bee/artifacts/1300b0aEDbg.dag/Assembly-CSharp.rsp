@@ -350,7 +350,7 @@
 "Assets/Scripts/Coin.cs"
 "Assets/Scripts/CoinManager.cs"
 "Assets/Scripts/CoinManagerSingleton.cs"
-"Assets/Scripts/CoinMnagerSingleton.cs"
+"Assets/Scripts/GameManager.cs"
 "Assets/Scripts/HandleClickedButton.cs"
 "Assets/Scripts/ShopManager.cs"
 "Assets/Scripts/StringReferences.cs"

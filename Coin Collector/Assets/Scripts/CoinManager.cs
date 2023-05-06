@@ -35,6 +35,8 @@ public class CoinManager : MonoBehaviour
     void Start()
     {
         _coinsOwnedText.text = CoinManagerSingleton.Instance.CoinsOwned.ToString();
+        _clicksToBonus = PlayerPrefs.GetInt("Bonus", _clicksToBonus);
+        _clicksLeftText.text = _clicksToBonus.ToString();
     }
 
     // Update is called once per frame
@@ -57,6 +59,8 @@ public class CoinManager : MonoBehaviour
     void HandleBonus(int oneCoin, int tenCoins, int oneHundredCoins)
     {
         _clicksToBonus--; //Tracks bonus countdown
+
+        PlayerPrefs.SetInt("Bonus", _clicksToBonus);
 
         if (_clicksToBonus <= 0) //Assignes bonus
         {

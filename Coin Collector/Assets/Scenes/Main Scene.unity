@@ -523,10 +523,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
-    - target: {fileID: 4597449566617070224, guid: d6b2f9d8ef972da4e9cf7b737589ac65, type: 3}
-      propertyPath: m_text
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4597449567320113310, guid: d6b2f9d8ef972da4e9cf7b737589ac65, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
