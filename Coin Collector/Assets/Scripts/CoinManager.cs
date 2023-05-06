@@ -21,48 +21,26 @@ public class CoinManager : MonoBehaviour
     Coin _coinScript;
 
     [SerializeField]
-    ShopManager _shopManager;
-
-    [SerializeField]
     TextMeshProUGUI _clicksLeftText;
 
     [SerializeField]
     TextMeshProUGUI _coinsOwnedText;
 
-    public int _coinsOwned = 10000; //Initial coins owned value
+    //public int _coinsOwned = 10000; //Initial coins owned value
     int _clicksToBonus = 101, _maxBonusValue = 101; //Clicks left to bonus initially and after each subsequent bonus
     int _minRangeForBonus = 0, _maxRangeForBonus = 10; //Range for random chance
     int _oneCoinValue = 1, _tenCoinValue = 10, _hundredCoinValue = 100; //Coin values
 
-    public Action<int> CoinsOwnedChanged;
-
-    private void OnEnable()
-    {
-        _shopManager.OnBuyItem += OnBuyItem;
-    }
-
-    private void OnDisable()
-    {
-        _shopManager.OnBuyItem -= OnBuyItem;
-    }
-
-    private void Awake()
-    {
-        
-    }
-
     // Start is called before the first frame update
     void Start()
     {
-        _coinsOwned = PlayerPrefs.GetInt("CoinsEarned", 10000); // retrieve coinsEarned from PlayerPrefs or use 0 as default
-
-        UpdateCoinsOwnedText();
+        _coinsOwnedText.text = CoinManagerSingleton.Instance.CoinsOwned.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(_coinsOwned);
+
     }
 
     public void SpawnCoin()
@@ -110,34 +88,9 @@ public class CoinManager : MonoBehaviour
         else if (coinsToAdd == _hundredCoinValue)
             CoinManagerSingleton.Instance.CoinsOwned += _hundredCoinValue;
 
-        //PlayerPrefs.SetInt("CoinsEarned", _coinsOwned); // save coinsEarned to PlayerPrefs
 
-        UpdateCoinsOwnedText();
+        _coinsOwnedText.text = CoinManagerSingleton.Instance.CoinsOwned.ToString();
 
         _coinScript.HandleCoinText(coinsToAdd); //Calls HandleCoinText after adding coins
-
-        CoinsOwnedChanged?.Invoke(CoinManagerSingleton.Instance.CoinsOwned); //Raise an event to notify other scripts that the coins owned has changed
     }
-
-    public int CoinsOwened()
-    {
-        _coinsOwned = PlayerPrefs.GetInt("CoinsEarned", 10000);
-        return _coinsOwned;
-    }
-
-    public void OnBuyItem(int cost) //Updates coinsOwned when item is bought.
-    {
-        CoinManagerSingleton.Instance.CoinsOwned -= cost;
-
-        //PlayerPrefs.SetInt("CoinsEarned", _coinsOwned); // save coinsEarned to PlayerPrefs
-    }
-
-    public void SetCoinsOwned(int coinsLeft)
-    {
-        _coinsOwned = coinsLeft;
-
-        PlayerPrefs.SetInt("CoinsEarned", _coinsOwned); // save coinsEarned to PlayerPrefs
-    }
-
-    void UpdateCoinsOwnedText() => _coinsOwnedText.text = _coinsOwned.ToString();
 }

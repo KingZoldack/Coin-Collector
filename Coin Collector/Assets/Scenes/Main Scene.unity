@@ -149,6 +149,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50b42a7e782d99f4286d6b722ad7fee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &1255192404
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1325399570232688354, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_Name
+      value: CoinManagerSingleton
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1325399570232688356, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ca77ef4028cfa1e4cae607587ff6eeee, type: 3}
 --- !u!114 &1457351590 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4597449566824505889, guid: d6b2f9d8ef972da4e9cf7b737589ac65, type: 3}
@@ -313,6 +370,10 @@ PrefabInstance:
       propertyPath: _coinsOwnedText
       value: 
       objectReference: {fileID: 1535091479}
+    - target: {fileID: 3463670275927253568, guid: 9ac4b256914f3c642a56513101057460, type: 3}
+      propertyPath: _coinsRightText
+      value: 
+      objectReference: {fileID: 1535091479}
     - target: {fileID: 3463670275927253569, guid: 9ac4b256914f3c642a56513101057460, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -462,6 +523,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 963194227}
+    - target: {fileID: 4597449566617070224, guid: d6b2f9d8ef972da4e9cf7b737589ac65, type: 3}
+      propertyPath: m_text
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4597449567320113310, guid: d6b2f9d8ef972da4e9cf7b737589ac65, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 

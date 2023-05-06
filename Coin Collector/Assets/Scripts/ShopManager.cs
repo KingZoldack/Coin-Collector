@@ -37,8 +37,8 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     Sprite[] itemImage;
 
-    [SerializeField]
-    CoinManager _coinManager;
+    //[SerializeField]
+    //CoinManager _coinManager;
 
     [SerializeField]
     Button _itemButton;
@@ -65,7 +65,6 @@ public class ShopManager : MonoBehaviour
 
     private void Start()
     {
-        _currentCoins = _coinManager.CoinsOwened();
         _itemPriceText = GetComponentInChildren<TextMeshProUGUI>();
         _coinsOwnedText.text = CoinManagerSingleton.Instance.CoinsOwned.ToString();
 
@@ -109,7 +108,6 @@ public class ShopManager : MonoBehaviour
         int clampedLevel = Math.Clamp(_itemLevel, 0, _itemPrice.Length - 1);
         int cost = _itemPrice[clampedLevel];
 
-        Debug.Log("Cost:" + cost);
         if (_isMaxLevel)
         {
             ShowAlertText("MAX LEVEL!");
@@ -117,7 +115,6 @@ public class ShopManager : MonoBehaviour
         else if (CoinManagerSingleton.Instance.CoinsOwned >= cost)
         {
             CoinManagerSingleton.Instance.CoinsOwned -= cost;
-            Debug.Log("Total Coins:" + CoinManagerSingleton.Instance.CoinsOwned);
             _itemLevel++;
             PlayerPrefs.SetInt(_itemName + " Item Level", _itemLevel);
             if (_itemLevel == _itemPrice.Length)
@@ -141,19 +138,6 @@ public class ShopManager : MonoBehaviour
         alertObject.SetActive(true);
         _alertText = alertObject.GetComponent<TextMeshProUGUI>();
         _alertText.text = message;
-    }
-
-    private void HandleTransactions()
-    {
-        _currentCoins -= _itemPrice[_itemLevel]; //Deduct price based on item level from coins owned
-        OnBuyItem?.Invoke(_itemPrice[_itemLevel]); //Sets param to item price
-        _coinManager.OnBuyItem(_itemPrice[_itemLevel]); //Updates player coins in CoinManager
-    }
-
-    private void MaxLevelReached()
-    {
-        _isMaxLevel = true;
-        _itemLevel = 6;
     }
 
     void OnCoinsOwnedChanger(int coinsOwned)
