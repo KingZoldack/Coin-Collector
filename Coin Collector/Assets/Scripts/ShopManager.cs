@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,8 +18,11 @@ public class ShopManager : MonoBehaviour
     int _currentPrice = 1;
 
     int _itemLevel = 0;
-    bool _isMaxLevel;
+    int _maxCounter = 0;
+
+    public bool _isMaxLevel;
     bool _isFirstSprite = true;
+    bool _canUpgrade;
 
     int[] _levelPrices;
 
@@ -49,9 +53,18 @@ public class ShopManager : MonoBehaviour
     TextMeshProUGUI _itemPriceText;
     TextMeshProUGUI _alertText;
 
+
+    public int c; 
+    public GameObject[] shopobjects;
+    ShopManager sManagerCache;
+    public bool alreadyCounted = false;
+    public int loopCounter = 0;
+
+
     int _currentCoins;
 
     public Action<int> OnBuyItem;
+    public Action<int> OnMaxedItem;
 
     private void OnEnable()
     {
@@ -74,12 +87,39 @@ public class ShopManager : MonoBehaviour
             _isMaxLevel = true;
             _isFirstSprite = false;
         }
+
+
+
+       
     }
 
     private void Update()
     {
         UpdateItemSprite();
         UpdatePriceText();
+        //UpdateMaxCount();
+        Debug.Log("Mac Counter: " + _maxCounter);
+        //Badges.Instance.UpdateMaxItemLevelCount(_maxCounter);
+
+        foreach (GameObject shopItem in shopobjects)
+        {
+            sManagerCache = shopItem.GetComponentInChildren<ShopManager>();
+            
+            Debug.Log("Is Item max level?" + sManagerCache._isMaxLevel + shopItem);
+            if (sManagerCache._isMaxLevel && !sManagerCache.alreadyCounted)
+            {
+                sManagerCache.alreadyCounted = true;
+                c = c + 1;
+                Debug.Log("this is C!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" + c);
+
+            }
+
+            Debug.Log("AlreadyCounted -------------------------------" + sManagerCache.alreadyCounted + "  Item(" + shopItem.name + ")");
+        }
+
+
+
+
     }
 
     private void UpdateItemSprite()
@@ -119,17 +159,41 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt(_itemName + " Item Level", _itemLevel);
             if (_itemLevel == _itemPrice.Length)
             {
+               
                 _isMaxLevel = true;
+                _canUpgrade = true;
+                UpdateMaxCount();
+                _canUpgrade = false;
+
+
+                //Badges.Instance.UpdateMaxItemLevelCount(_maxCounter);
             }
 
+           
             UpdateItemSprite();
             UpdatePriceText();
             _coinsOwnedText.text = CoinManagerSingleton.Instance.CoinsOwned.ToString();
+
         }
         else
             ShowAlertText("NOT ENOUGH COINS!");
 
         _isFirstSprite = false;
+
+    }
+
+    void UpdateMaxCount()
+    {
+        if (_canUpgrade == true)
+        {
+            _maxCounter++;
+            Debug.Log("Here--- " + _maxCounter);
+
+
+           
+
+            //_canUpgrade = false;
+        }
     }
 
     private void ShowAlertText(string message)

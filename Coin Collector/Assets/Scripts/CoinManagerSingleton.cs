@@ -6,7 +6,7 @@ public class CoinManagerSingleton : MonoBehaviour
 {
     public static CoinManagerSingleton Instance;
 
-    int _coinsOwned = 10000; //Initial coins owned value
+    int _coinsOwned = 1000000000; //Initial coins owned value
 
     public int CoinsOwned
     {
@@ -30,7 +30,7 @@ public class CoinManagerSingleton : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(this.gameObject);
-            _coinsOwned = PlayerPrefs.GetInt("CoinsOwned", 10000); //Retrieve the coins owned from PlayerPrefs
+            _coinsOwned = PlayerPrefs.GetInt("CoinsOwned", 1000000000); //Retrieve the coins owned from PlayerPrefs
         }
         else
             Destroy(this.gameObject);
